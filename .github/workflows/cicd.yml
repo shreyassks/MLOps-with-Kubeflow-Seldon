@@ -27,7 +27,7 @@ jobs:
       uses: redhat-actions/s2i-build@v2
       with:
         path_context: 'pipeline/pipeline_steps/clean_text'
-        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        builder_image: 'seldonio/seldon-core-s2i-python37:1.2.3'
         image: skshreyas714/clean_text
         tags: 0.1
     - name: Push text cleaning image
@@ -38,7 +38,7 @@ jobs:
       uses: redhat-actions/s2i-build@v2
       with:
         path_context: 'pipeline/pipeline_steps/spacy_tokenize'
-        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        builder_image: 'seldonio/seldon-core-s2i-python37:1.2.3'
         image: skshreyas714/spacy_tokenizer
         tags: 0.1
     - name: Push text tokenize image
@@ -48,8 +48,8 @@ jobs:
       id: build-3
       uses: redhat-actions/s2i-build@v2
       with:
-        path_context: './pipeline/pipeline_steps/tfidf_vectorizer && ./build_image.sh'
-        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        path_context: 'pipeline/pipeline_steps/tfidf_vectorizer'
+        builder_image: 'seldonio/seldon-core-s2i-python37:1.2.3'
         image: skshreyas714/tfidf_vectorizer
         tags: 0.1
     - name: Push TF-IDF Vectorizer image
@@ -59,8 +59,8 @@ jobs:
       id: build-4
       uses: redhat-actions/s2i-build@v2
       with:
-        path_context: './pipeline/pipeline_steps/lr_text_classifier && ./build_image.sh'
-        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        path_context: 'pipeline/pipeline_steps/lr_text_classifier'
+        builder_image: 'seldonio/seldon-core-s2i-python37:1.2.3'
         image: skshreyas714/lr_text_classifier
         tags: 0.1
     - name: Push Logistic Regression Text classifier image
