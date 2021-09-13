@@ -23,7 +23,7 @@ jobs:
       run: docker push skshreyas714/data_downloader:0.1
 
     - name: Building text cleaning image
-      id: build_image
+      id: build-1
       uses: redhat-actions/s2i-build@v2
       with:
         path_context: './pipeline/pipeline_steps/clean_text && ./build_image.sh'
@@ -34,7 +34,7 @@ jobs:
       run: docker push skshreyas714/clean_text:0.1
 
     - name: Building text tokenize image
-      id: build_image
+      id: build-2
       uses: redhat-actions/s2i-build@v2
       with:
         path_context: './pipeline/pipeline_steps/spacy_tokenize && ./build_image.sh'
@@ -45,7 +45,7 @@ jobs:
       run: docker push skshreyas714/spacy_tokenizer:0.1
 
     - name: Building TF-IDF Vectorizer image
-      id: build_image
+      id: build-3
       uses: redhat-actions/s2i-build@v2
       with:
         path_context: './pipeline/pipeline_steps/tfidf_vectorizer && ./build_image.sh'
@@ -56,7 +56,7 @@ jobs:
       run: docker push skshreyas714/tfidf_vectorizer:0.1
 
     - name: Building Logistic Regression Text classifier image
-      id: build_image
+      id: build-4
       uses: redhat-actions/s2i-build@v2
       with:
         path_context: './pipeline/pipeline_steps/lr_text_classifier && ./build_image.sh'
