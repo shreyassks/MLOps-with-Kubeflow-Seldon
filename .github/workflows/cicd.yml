@@ -17,29 +17,53 @@ jobs:
     - name: Login to DockerHub Registry
       run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-    - name: Build the Data Downloader image
+    - name: Building Data Downloader image
       run: cd ./pipeline/pipeline_steps/data_downloader && ./build_image.sh
     - name: Push the Data Downloader image
       run: docker push skshreyas714/data_downloader:0.1
 
-    - name: Build the Data Split image
-      run: cd ./pipeline/pipeline_steps/clean_text && ./build_image.sh
-    - name: Push the Data Split image
+    - name: Building text cleaning image
+      id: build_image
+      uses: redhat-actions/s2i-build@v2
+      with:
+        path_context: './pipeline/pipeline_steps/clean_text && ./build_image.sh'
+        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        image: skshreyas714/clean_text
+        tags: 0.1
+    - name: Push text cleaning image
       run: docker push skshreyas714/clean_text:0.1
 
-    - name: Build the Preprocess image
-      run: cd ./pipeline/pipeline_steps/spacy_tokenize && ./build_image.sh
-    - name: Push the Preprocess image
+    - name: Building text tokenize image
+      id: build_image
+      uses: redhat-actions/s2i-build@v2
+      with:
+        path_context: './pipeline/pipeline_steps/spacy_tokenize && ./build_image.sh'
+        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        image: skshreyas714/spacy_tokenizer
+        tags: 0.1
+    - name: Push text tokenize image
       run: docker push skshreyas714/spacy_tokenizer:0.1
 
-    - name: Build the Train image
-      run: cd ./pipeline/pipeline_steps/tfidf_vectorizer && ./build_image.sh
-    - name: Push the Train image
+    - name: Building TF-IDF Vectorizer image
+      id: build_image
+      uses: redhat-actions/s2i-build@v2
+      with:
+        path_context: './pipeline/pipeline_steps/tfidf_vectorizer && ./build_image.sh'
+        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        image: skshreyas714/tfidf_vectorizer
+        tags: 0.1
+    - name: Push TF-IDF Vectorizer image
       run: docker push skshreyas714/tfidf_vectorizer:0.1
 
-    - name: Build the Train image
-      run: cd ./pipeline/pipeline_steps/lr_text_classifier && ./build_image.sh
-    - name: Push the Train image
+    - name: Building Logistic Regression Text classifier image
+      id: build_image
+      uses: redhat-actions/s2i-build@v2
+      with:
+        path_context: './pipeline/pipeline_steps/lr_text_classifier && ./build_image.sh'
+        builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
+        image: skshreyas714/lr_text_classifier
+        tags: 0.1
+    - name: Push Logistic Regression Text classifier image
       run: docker push skshreyas714/lr_text_classifier:0.1
 
     - name: Install python deps
