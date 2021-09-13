@@ -1,0 +1,55 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+    - name: Build the Data Downloader image
+      run: cd ./pipeline/pipeline_steps/data_downloader && ./build_image.sh
+    - name: Push the Data Downloader image
+      run: docker push skshreyas714/data_downloader:0.1
+
+    - name: Build the Data Split image
+      run: cd ./pipeline/pipeline_steps/clean_text && ./build_image.sh
+    - name: Push the Data Split image
+      run: docker push skshreyas714/clean_text:0.1
+
+    - name: Build the Preprocess image
+      run: cd ./pipeline/pipeline_steps/spacy_tokenize && ./build_image.sh
+    - name: Push the Preprocess image
+      run: docker push skshreyas714/spacy_tokenizer:0.1
+
+    - name: Build the Train image
+      run: cd ./pipeline/pipeline_steps/tfidf_vectorizer && ./build_image.sh
+    - name: Push the Train image
+      run: docker push skshreyas714/tfidf_vectorizer:0.1
+
+    - name: Build the Train image
+      run: cd ./pipeline/pipeline_steps/lr_text_classifier && ./build_image.sh
+    - name: Push the Train image
+      run: docker push skshreyas714/lr_text_classifier:0.1
+
+    - name: Install python deps
+      uses: py-actions/py-dependency-install@v2
+      with:
+          path: "requirements.txt"
+    - name: Trigger kubeflow pipeline
+      env:
+        PIPELINE_NAME: ${{ secrets.PIPELINE_NAME }}
+        EXPERIMENT_NAME: ${{ secrets.EXPERIMENT_NAME }}
+        INPUT_KUBEFLOW_URL: ${{ secrets.INPUT_KUBEFLOW_URL }}
+        COOKIE: ${{ secrets.COOKIE }}
+      run: cd ./train_pipeline && python nlp_pipeline.py
