@@ -26,7 +26,7 @@ jobs:
       id: build-1
       uses: redhat-actions/s2i-build@v2
       with:
-        path_context: './pipeline/pipeline_steps/clean_text && ./build_image.sh'
+        path_context: 'pipeline/pipeline_steps/clean_text && ./build_image.sh'
         builder_image: 'seldonio/seldon-core-s2i-python3:0.18'
         image: skshreyas714/clean_text
         tags: 0.1
