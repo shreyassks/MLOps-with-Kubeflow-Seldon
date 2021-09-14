@@ -110,23 +110,24 @@ def main():
 #add
     # Register pipeline
     from nlp_pipeline import nlp_pipeline
-    compiler.Compiler().compile(nlp_pipeline, __file__ + ".tar.gz")
+    # compiler.Compiler().compile(nlp_pipeline, __file__ + ".tar.gz")
 
     pipeline_name = os.getenv("PIPELINE_NAME")
     experiment_name = os.getenv("EXPERIMENT_NAME")
     cookie = os.getenv("COOKIE")
 
     client = kfp.Client(
-        host=os.getenv("INPUT_KUBEFLOW_URL"),
+        host= os.getenv("INPUT_KUBEFLOW_URL"),
         namespace="seldon",
-        cookies=f'authservice_session={cookie}',
+        cookies=f'authservice_session={cookie}'
     )
 
     client.set_user_namespace(namespace="seldon")
+    print(f"User Namespace:- {client.get_user_namespace()}")
     client.upload_pipeline(pipeline_package_path="nlp_pipeline.py.tar.gz",
                            pipeline_name=pipeline_name,
                            description="Reddit Comment Classification with Kubeflow Pipelines")
-    print(f"User Namespace:- {client.get_user_namespace()}")
+
     # Register experiment
     # experiment_id = upload_experiments(
     #     client=client,
@@ -150,7 +151,6 @@ def main():
     job_name = f"Run_{pipeline_name}_on_{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
     experiment_id = client.get_experiment(experiment_name=experiment_name).to_dict()["id"]
     pipeline_id = client.get_pipeline_id(name=pipeline_name)
-    print(experiment_id)
     client.run_pipeline(
         pipeline_id=pipeline_id,
         experiment_id=experiment_id,

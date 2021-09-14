@@ -1,15 +1,10 @@
 import click
 import dill
 import os
+from Transformer import Transformer
 
 print("HERE")
 print(os.getcwd())
-try:
-    # Running for tests
-    from .Transformer import Transformer
-except:
-    # Running from CLI
-    from Transformer import Transformer
 
 
 @click.command()

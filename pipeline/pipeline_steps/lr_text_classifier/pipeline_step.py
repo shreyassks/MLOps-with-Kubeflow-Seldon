@@ -3,6 +3,7 @@ import numpy as np
 import dill
 from sklearn.linear_model import LogisticRegression
 
+
 @click.command()
 @click.option('--in-path', default="/mnt/tfidf_vectors.data")
 @click.option('--labels-path', default="/mnt/labels.data")
@@ -43,6 +44,7 @@ def run_pipeline(
 
     with open(out_path, "wb") as out_f:
         dill.dump(y, out_f)
+
 
 if __name__ == "__main__":
     run_pipeline()

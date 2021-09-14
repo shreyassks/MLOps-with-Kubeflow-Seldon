@@ -3,6 +3,7 @@ import numpy as np
 import dill
 import pandas as pd
 
+
 @click.command()
 @click.option('--labels-path', default="/mnt/labels.data")
 @click.option('--features-path', default="/mnt/features.data")
@@ -29,6 +30,7 @@ def run_pipeline(
 
     with open(labels_path, "wb") as out_f:
         dill.dump(y, out_f)
+
 
 if __name__ == "__main__":
     run_pipeline()

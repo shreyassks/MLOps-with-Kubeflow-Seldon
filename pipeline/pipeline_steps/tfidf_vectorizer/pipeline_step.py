@@ -3,6 +3,7 @@ import numpy as np
 import dill
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+
 @click.command()
 @click.option('--in-path', default="/mnt/tokenized_text.data")
 @click.option('--out-path', default="/mnt/tfidf_vectors.data")
@@ -42,6 +43,7 @@ def run_pipeline(
 
     with open(out_path, "wb") as out_f:
         dill.dump(y, out_f)
+
 
 if __name__ == "__main__":
     run_pipeline()

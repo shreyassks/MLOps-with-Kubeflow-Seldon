@@ -76,4 +76,4 @@ jobs:
         EXPERIMENT_NAME: ${{ secrets.EXPERIMENT_NAME }}
         INPUT_KUBEFLOW_URL: ${{ secrets.INPUT_KUBEFLOW_URL }}
         COOKIE: ${{ secrets.COOKIE }}
-      run: cd train_pipeline && python main.py
+      run: cd ./train_pipeline && python main.py

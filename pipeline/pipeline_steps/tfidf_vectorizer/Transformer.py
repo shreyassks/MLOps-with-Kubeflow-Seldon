@@ -2,6 +2,7 @@
 import dill
 import logging
 
+
 class Transformer(object):
     def __init__(self):
 

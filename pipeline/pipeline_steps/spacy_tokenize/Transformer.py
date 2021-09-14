@@ -1,15 +1,17 @@
 import spacy
 import numpy as np
 import logging
+import en_core_web_sm
 
 # from spacy.cli import download
 # import importlib
 # download("en_core_web_sm")
 # importlib.reload(spacy)
 
-nlp = spacy.load('en_core_web_sm', parser=False, entity=False)
-    
-class Transformer():
+nlp = en_core_web_sm.load() #spacy.load('en_core_web_sm')
+
+
+class Transformer:
     __symbols = set("!$%^&*()_+|~-=`{}[]:\";'<>?,./-")
 
     def predict(self, X, feature_names=[]):

@@ -33,7 +33,7 @@ def nlp_pipeline(
 
     download_step = dsl.ContainerOp(
         name="data_downloader",
-        image="skshreyas714/data_downloader:v1",
+        image="skshreyas714/data_downloader:0.2",
         command="python",
         arguments=[
             "/microservice/pipeline_step.py",
@@ -69,7 +69,7 @@ def nlp_pipeline(
 
     tokenize_step = dsl.ContainerOp(
         name="tokenize",
-        image="skshreyas714/spacy_tokenizer:0.1",
+        image="skshreyas714/spacy_tokenizer:0.3",
         command="python",
         arguments=[
             "/microservice/pipeline_step.py",

@@ -15,13 +15,13 @@ spec:
   - componentSpecs:
     - spec:
         containers:
-        - image: clean_text_transformer:0.1
+        - image: skshreyas714/clean_text:0.1
           imagePullPolicy: IfNotPresent
           name: cleantext
           resources:
             requests:
               memory: 1Mi
-        - image: skshreyas714/spacy_tokenizer:0.1
+        - image: skshreyas714/spacy_tokenizer:0.3
           imagePullPolicy: IfNotPresent
           name: spacytokenizer
         - image: skshreyas714/tfidf_vectorizer:0.1
@@ -40,7 +40,7 @@ spec:
         volumes:
         - name: mypvc
           persistentVolumeClaim:
-            claimName: "{{workflow.name}}-my-pvc"
+            claimName: "nlp-kj85w-my-pvc"
     graph:
       children:
       - name: spacytokenizer
