@@ -1,10 +1,10 @@
 python-dateutil==2.8.1
-kfp==1.0.0
-kubernetes==11.0.0
+kfp
+kubernetes
 click==7.1.2
-seldon_core==1.2.3
-numpy==1.19.1
-pandas==1.1.1
+seldon_core
+numpy
+pandas
 spacy==2.3.2
-scikit-learn-0.23.2
-en-core-web-sm=2.3.1
+scikit-learn
+en-core-web-sm-abd
