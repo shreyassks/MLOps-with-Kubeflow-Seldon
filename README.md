@@ -1,5 +1,8 @@
 # End-to-end Reusable ML Pipeline with Seldon and Kubeflow
 
+## Google Slides for Reference
+https://docs.google.com/presentation/d/15qPkdZNsIPn02PlyBl1ve15yDCWGvtzP/edit?usp=sharing&ouid=113737295631185544437&rtpof=true&sd=true
+
 In this example we showcase how to build re-usable components to build an ML pipeline that can be trained and deployed at scale.
 
 We will automate content moderation on the Reddit comments in /r/science building a machine learning NLP model with the following components:
